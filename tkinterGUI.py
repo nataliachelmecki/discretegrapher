@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import ttk
 
 LARGE_FONT = ("Verdana, 12")
 
@@ -8,10 +9,10 @@ class Grapher(tk.Tk):
 
     def __init__(self, *args, **kwargs):
         tk.Tk.__init__(self, *args, **kwargs)
+        tk.Tk.iconbitmap(self, default="program_icon.ico")
+
         container = tk.Frame(self)
-
         container.pack(side="top", fill="both", expand=True)
-
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(0, weight=1)
 
@@ -35,10 +36,10 @@ class Grapher(tk.Tk):
 class startPage(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
-        label = tk.Label(self, text="Start Page", font=LARGE_FONT)
+        label = ttk.Label(self, text="Start Page", font=LARGE_FONT)
         label.pack(pady=10, padx=10)
 
-        button1 = tk.Button(self, text="Visit Page 1",
+        button1 = ttk.Button(self, text="Visit Page 1",
                             command=lambda: controller.show_frame(pageOne))
         button1.pack()
 
@@ -50,7 +51,7 @@ class pageOne(tk.Frame):
         label = tk.Label(self, text="Page One", font=LARGE_FONT)
         label.pack(pady=10, padx=10)
 
-        button = tk.Button(self, text="Back To Home",
+        button = ttk.Button(self, text="Back To Home",
                            command=lambda: controller.show_frame(startPage))
         button.pack()
 
