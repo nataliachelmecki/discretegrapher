@@ -1,5 +1,10 @@
 import tkinter as tk
 from tkinter import ttk
+import matplotlib
+matplotlib.use("TkAgg")
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
+from matplotlib.figure import Figure
+
 
 LARGE_FONT = ("Verdana, 12")
 
@@ -10,7 +15,7 @@ class Grapher(tk.Tk):
     def __init__(self, *args, **kwargs):
         tk.Tk.__init__(self, *args, **kwargs)
         tk.Tk.iconbitmap(self, default="program_icon.ico")
-
+        tk.Tk.wm_title(self,  "Discrete-Time Grapher")
         container = tk.Frame(self)
         container.pack(side="top", fill="both", expand=True)
         container.grid_rowconfigure(0, weight=1)
@@ -55,6 +60,17 @@ class pageOne(tk.Frame):
                            command=lambda: controller.show_frame(startPage))
         button.pack()
 
+        f = Figure(figsize=(5,5), dpi=100)
+        a = f.add_subplot(111)
+        a.plot([1,2,3,4,1,5,7,6],[1,2,3,4,1,5,7,6])
+
+        canvas = FigureCanvasTkAgg(f, self)
+        canvas.draw()
+        canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH,expand=True)
+
+        toolbar = NavigationToolbar2Tk(canvas, self)
+        toolbar.update()
+        canvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH,expand=True)
 
 app = Grapher()
 app.mainloop()
